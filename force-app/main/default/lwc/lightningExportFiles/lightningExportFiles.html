@@ -1,0 +1,58 @@
+<template>
+
+    <div class="c-container">
+
+        <lightning-card title="Exportar Documentos" icon-name="standard:home">
+
+            <template if:true={isLoading}>
+                <lightning-spinner variant="brand" size="large"> </lightning-spinner>
+            </template>
+
+            <template if:true={displayConfirmation}>
+                
+                <c-lightning-export-files-dialog 
+                    file-details={fileDetails} 
+                    onconfirm={startProcess}
+                    onclosemodal={handleCloseConfirmation}></c-lightning-export-files-dialog>
+
+            </template>
+
+            <lightning-layout multiple-rows="true" class="slds-var-m-around_medium">
+
+                <lightning-layout-item class="slds-var-m-bottom_small" padding="around-small" size="4">
+
+                    <lightning-input type="date" name='startDate' label="Data Início" value={interval.start}
+                        disabled={isExportAll} onchange={handleStartDateChange} date-style="short">
+                    </lightning-input>
+
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-var-m-bottom_small" padding="around-small" size="4">
+
+                    <lightning-input type="date" name='endDate' label="Data Fim" value={interval.end}
+                        disabled={isExportAll} onchange={handleEndDateChange} date-style="short">
+                    </lightning-input>
+
+                </lightning-layout-item>
+
+                <lightning-layout-item class="slds-var-m-top_large" padding="around-small" size="4">
+                    
+                    <lightning-input type="toggle" label="Exportar tudo" name="export All" 
+                        onchange={handleExportAllChange} message-toggle-active="" message-toggle-inactive="">
+                    </lightning-input>
+
+                </lightning-layout-item>
+
+                <lightning-layout-item class="slds-align_absolute-center slds-text-align_center" padding="around-small" size="4">
+
+                    <lightning-button variant="brand" label="Iniciar" onclick={checkFileDetails} disabled={hasInvalidInputs}></lightning-button>
+
+                </lightning-layout-item>
+                
+
+            </lightning-layout>
+
+        </lightning-card>
+
+    </div>
+    
+</template>
